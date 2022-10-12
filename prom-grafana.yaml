@@ -1,0 +1,69 @@
+version: '3.4'
+services:
+
+  kafka_exporter:
+    image: danielqsj/kafka-exporter:v1.5.0
+    restart: always
+    container_name: kafka_exporter
+    command: --kafka.server=kafka1:9092  --kafka.server=kafka2:9092  --kafka.server=kafka3:9092 --tls.enabled --tls.ca-file=/certs/kafka-ca.crt --tls.cert-file=/certs/root.crt --tls.key-file=/certs/root.key --log.enable-sarama --tls.insecure-skip-tls-verify
+    ports:
+     - "9308:9308"
+    links:
+      - prometheus
+    depends_on:
+      - prometheus
+    volumes:
+      - /home/vagrant/kafka-with-ssl/secrets/root.crt:/certs/root.crt
+      - /home/vagrant/kafka-with-ssl/secrets/root.key:/certs/root.key
+      - /home/vagrant/kafka-with-ssl/ca/kafka-ca.crt:/certs/kafka-ca.crt
+
+  prometheus:
+    image: prom/prometheus:v2.35.0
+    restart: always
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - /prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=168h'
+
+  grafana:
+    image: grafana/grafana:9.0.1
+    restart: always
+    container_name: grafana
+    user: '472'
+    ports:
+      - "3000:3000"
+    volumes:
+      - /grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    links:
+      - prometheus
+        
+  node-exporter:
+    image: prom/node-exporter:v1.1.2
+    container_name: node-exporter
+    restart: always
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --path.procfs=/host/proc
+      - --path.rootfs=/rootfs
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.ignored-mount-points
+      - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)
+    ports:
+      - 9100:9100
+    expose:
+      - 9100
+    depends_on:
+      - prometheus
+    links:
+      - prometheus

@@ -1,0 +1,5 @@
+https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+
+ID - 1860
+
+https://grafana.com/grafana/dashboards/13978-node-exporter-quickstart-and-dashboard/

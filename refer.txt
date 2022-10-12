@@ -1,0 +1,13 @@
+https://medium.com/processone/using-tls-authentication-for-your-go-kafka-client-3c5841f2a625
+
+https://stackoverflow.com/questions/60869666/kafka-exporter-does-not-work-on-compute-instance
+
+
+https://www.sanderh.dev/monitor-linux-hosts-grafana-prometheus-node-exporter/
+
+https://github.com/stefanprodan/dockprom/blob/master/docker-compose.yml
+
+https://github.com/vegasbrianc/prometheus/blob/master/docker-compose.yml
+
+
+https://medium.com/nerd-for-tech/tutorial-how-to-deploy-prometheus-and-node-exporter-as-containers-on-a-remote-server-with-5-af5b449be49b

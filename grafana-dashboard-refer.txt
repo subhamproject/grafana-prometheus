@@ -1,0 +1,3 @@
+https://grafana.com/grafana/dashboards/7589-kafka-exporter-overview/
+
+ID - 7589
