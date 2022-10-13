@@ -67,3 +67,21 @@ services:
       - prometheus
     links:
       - prometheus
+
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.20
+    #image: percona/mongodb_exporter:0.34.0
+    container_name: mongodb-exporter
+    restart: always
+    command: --mongodb.uri "mongodb://mongodb_exporter:password@mongo1:27017/admin?tls=true&tlsCertificateKeyFile=/certs/mongo-client.pem&tlsAllowInvalidCertificates=true&tlsCAFile=/certs/mongo1.pem" --compatible-mode --enable.dbstats --enable.top  --discovering-mode --log.level="error"
+    ports:
+      - 17001:17001
+      - 9216:9216 
+    expose:
+      - 9216
+    depends_on:
+      - prometheus
+    links:
+      - prometheus
+    volumes:
+      - /home/vagrant/mongo-with-ssl:/certs:rw
