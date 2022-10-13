@@ -3,13 +3,9 @@
 set -o errexit
 set -o pipefail
 
-:${1?Please Provide Grafana URL Full Path -> Usage: ./$0 https://localhost:3000 eyJrIjoiOWpqRXpONHo5UktBSlpTZ2ZP}
-:${2?Please Provide Grafana Token -> Usage: ./$0 https://localhost:3000 eyJrIjoiOWpqRXpONHo5UktBSlpTZ2ZP}
 
-
-
-FULLURL="$1"
-headers="Authorization: Bearer $2"
+FULLURL="${1?Please Provide Grafana URL Full Path -> Usage: ./$0 https://localhost:3000 eyJrIjoiOWpqRXpONHo5UktBSlpTZ2ZP}"
+headers="Authorization: Bearer ${2?Please Provide Grafana Token -> Usage: ./$0 https://localhost:3000 eyJrIjoiOWpqRXpONHo5UktBSlpTZ2ZP}"
 in_path=dashboards_raw
 set -o nounset
 
