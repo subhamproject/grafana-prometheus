@@ -1,5 +1,7 @@
 https://grafana.com/grafana/dashboards/2583-mongodb/
 
+https://grafana.com/grafana/dashboards/7353-mongodb-overview/
+
 ID - 2583
 
 
