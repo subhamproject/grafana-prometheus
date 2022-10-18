@@ -1,0 +1,70 @@
+version: '3.4'
+services:
+
+
+  prometheus:
+    image: prom/prometheus:v2.38.0
+    restart: always
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - /prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=168h'
+
+  grafana:
+    image: grafana/grafana:9.1.1
+    restart: always
+    container_name: grafana
+    user: '472'
+    ports:
+      - "3000:3000"
+    volumes:
+      - /grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    links:
+      - prometheus
+
+  node-exporter:
+    image: prom/node-exporter:v1.1.2
+    container_name: node-exporter
+    restart: always
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --path.procfs=/host/proc
+      - --path.rootfs=/rootfs
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.ignored-mount-points
+      - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)
+    ports:
+      - 9100:9100
+    expose:
+      - 9100
+    depends_on:
+      - prometheus
+    links:
+      - prometheus
+
+  elasticsearch_exporter:
+    container_name: elasticsearch_exporter
+    #image: justwatch/elasticsearch_exporter
+    image: quay.io/prometheuscommunity/elasticsearch-exporter:latest
+    #image: prometheuscommunity/elasticsearch-exporter:v1.2.0
+    command: --es.uri=https://elastic1:9200 --es.all --es.ca=/certs/elk-ca.crt --es.client-cert=/certs/client.crt --es.client-private-key=/certs/client.key --es.cluster_settings --es.indices --es.shards --es.ssl-skip-verify
+    restart: always
+    ports:
+        - "9108:9108"
+        - "9114:9114"
+    volumes:
+      - /home/vagrant/elk-with-ssl/ca/elk-ca.crt:/certs/elk-ca.crt:rw
+      - /home/vagrant/elk-with-ssl/secrets/client.key:/certs/client.key:rw
+      - /home/vagrant/elk-with-ssl/secrets/client.crt:/certs/client.crt:rw
+      - /home/vagrant/elk-with-ssl/user_details:/data:rw
