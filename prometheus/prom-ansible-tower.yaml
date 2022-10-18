@@ -1,0 +1,17 @@
+global:
+  scrape_interval:     30s
+  evaluation_interval: 30s
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    scheme: https
+    bearer_token: xxxxxxxxxx
+    metrics_path: /api/v2/metrics
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['172.42.42.102']
+  - job_name: 'tower-01'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.42.42.102:9100']
