@@ -1,0 +1,36 @@
+Tower DashBoard:
+----------------------
+https://grafana.com/grafana/dashboards/13100-metrics-tower/
+https://github.com/redhat-cop/tower_grafana_dashboards
+https://grafana.com/grafana/dashboards/12609-ansible-awx/
+
+https://grafana.com/grafana/plugins/grafana-piechart-panel/ --> Grafana dashboard issue
+
+ANSIBLE TOWER MONITORING WITH GRAFANA
+
+git clone https://github.com/redhat-cop/tower_grafana_dashboards 
+ansible-playbook install_node_export
+
+global:
+  scrape_interval:     30s
+  evaluation_interval: 30s
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    scheme: https
+    bearer_token: xxxxxxxxxxxx
+    metrics_path: /api/v2/metrics
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['172.42.42.102']
+  - job_name: 'tower-01'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.42.42.102:9100']
+
+===========================================================
+https://www.stackovercloud.com/2020/05/06/red-hat-ansible-tower-monitoring-using-prometheus-node-exporter-grafana/
+https://www.ansible.com/blog/red-hat-ansible-tower-monitoring-using-prometheus-node-exporter-grafana
+
+
