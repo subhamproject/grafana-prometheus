@@ -1,0 +1,14 @@
+https://bidhankhatri.com.np/elk/monitoring-elasticsearch-cluster/ --> Follow this
+
+For Dashboard Grafana
+
+import all below
+
+
+https://grafana.com/grafana/dashboards/2322-elasticsearch/
+
+https://grafana.com/grafana/dashboards/14191-elasticsearch-overview/
+
+https://grafana.com/grafana/dashboards/878-elasticsearch-dashboard/
+
+https://wearenodev.github.io/post/tutorial/elasticsearch/monitor-your-elasticsearch-cluster-with-grafana-and-prometheus/
