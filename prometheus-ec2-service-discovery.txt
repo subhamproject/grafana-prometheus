@@ -1,0 +1,19 @@
+https://stackoverflow.com/questions/57293968/how-to-filter-ec2-instances-in-prometheus-yml
+
+https://gist.github.com/tacahiroy/50870f9591970e9fb8c73ef091fd0f9e -> IMP
+
+https://gist.github.com/anthonydahanne/014ab52f69c3e50aad8bff65d4b5ddf0
+
+https://www.robustperception.io/automatically-monitoring-ec2-instances/
+
+https://deependra-saraswat.medium.com/prometheus-ec2-service-discovery-ea6dbda50b72
+
+https://koudingspawn.de/prometheus-aws-discovery/ -> IMP 
+
+https://blog.ruanbekker.com/blog/2022/05/30/prometheus-relabel-config-examples/ -> IMP
+
+https://www.opcito.com/blogs/monitoring-kubernetes-clusters-with-prometheus-and-grafana
+
+https://automateinfra.com/2022/04/15/everything-you-should-know-about-prometheus-grafana-dashboard/
+
+https://raw.githubusercontent.com/prometheus/prometheus/release-2.23/config/testdata/conf.good.yml
